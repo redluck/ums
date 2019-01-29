@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.btn {
+    cursor: pointer;
+}
+body {
+	margin-top: 60px;
+	margin-left: 30px;  /*Aggiunto da me*/
+	margin-right: 30px; /*Aggiunto da me*/
+}
