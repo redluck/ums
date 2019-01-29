@@ -13,10 +13,9 @@ export class UsersComponent implements OnInit {
 	users: User[] = [];
 	@Output() updateUser = new EventEmitter<User>();
 
-	constructor(private service: UserService) {
-	}
+	constructor(private service: UserService) { }
 
-	ngOnInit(){
+	ngOnInit() {
 		this.users = this.service.getUsers();
 	}
 

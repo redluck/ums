@@ -14,11 +14,9 @@ export class UserComponent implements OnInit {
 	@Output('onDeleteUser') onDeleteUser = new EventEmitter();
 	@Output() onSelectUser = new EventEmitter();
 
-	constructor(private userService: UserService, private route: Router) {
-	}
+	constructor(private userService: UserService, private route: Router) { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
 	deleteUser() {
 		this.onDeleteUser.emit(this.user);
@@ -32,5 +30,4 @@ export class UserComponent implements OnInit {
 	showUserDetail() {
 		this.route.navigate(['users', this.user.id]);
 	}
-
 }
