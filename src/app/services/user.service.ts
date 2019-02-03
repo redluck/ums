@@ -1,11 +1,12 @@
 import { UserInterface } from './../interfaces/user';
 import { Injectable } from "@angular/core";
 import { User } from "../classes/user";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
 
-	users: User[] = [
+	users: User[] = /*[
 		{
 			id: 1,
 			name: 'Hidran1',
@@ -46,16 +47,17 @@ export class UserService {
 			phone: '454545455',
 			age: 43
 		}
-	];
+	];*/ [];
+	private APIURL = 'http://localhost:8000/users';
 
-	constructor() { }
+	constructor(private http: HttpClient) { }
 
 	getUsers() {
-		return this.users;
+		return this.http.get(this.APIURL);
 	}
 
-	getUser(id: number): User {
-		return this.users.find(user => user.id === id);
+	getUser(id: number) {
+		return this.http.get(this.APIURL + '/' + id);
 	}
 
 	deleteUser(user) {
@@ -66,11 +68,8 @@ export class UserService {
 	}
 
 	updateUser(user: UserInterface) {
-		const idx = this.users.findIndex((v) => v.id === user.id);
-		alert(idx);
-		if(idx !== -1) {
-			this.users[idx] = user;
-		}
+		user['_method'] = 'PUT';
+		return this.http.post(this.APIURL + '/' + user.id, user);
 	}
 
 	createUser(user: UserInterface) {

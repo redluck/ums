@@ -37,18 +37,30 @@ export class UserDetailComponent implements OnInit {
 				if (!params.id) {
 					return;
 				}
-				this.user = this.userService.getUser(+params.id);
+				this.userService.getUser(+params.id).subscribe(
+					response => this.user = response['data']
+				);
 			}
 		);
 	}
 
 	saveUser() {
 		if (this.user.id > 0) {
-			this.userService.updateUser(this.user);
+			this.userService.updateUser(this.user).subscribe(
+				response => {
+					alert();
+					let user = response['data'] as User;
+					if (response['success']) {
+						alert('User ' + user.name + ' modificato correttamente');
+					} else {
+						alert(response['message']);
+					}
+					this.router.navigate(['users']);
+				}
+			);
 		} else {
 			this.userService.createUser(this.user);
 		}
-		this.router.navigate(['users']);
 	}
 
 	resetForm(form) {

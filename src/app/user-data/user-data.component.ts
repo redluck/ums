@@ -22,7 +22,9 @@ export class UserDataComponent implements OnInit {
 	ngOnInit() {
 		this.route.params.subscribe(
 			(p) => {
-				this.user = this.userService.getUser(+p.id);
+				this.userService.getUser(+p.id).subscribe(
+					response => this.user = response['data']
+				);
 			}
 		);
 	}
