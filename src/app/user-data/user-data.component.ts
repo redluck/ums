@@ -20,6 +20,7 @@ export class UserDataComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		this.user =  new User();
 		this.route.params.subscribe(
 			(p) => {
 				this.userService.getUser(+p.id).subscribe(

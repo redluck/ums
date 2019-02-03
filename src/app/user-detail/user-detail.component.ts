@@ -48,7 +48,6 @@ export class UserDetailComponent implements OnInit {
 		if (this.user.id > 0) {
 			this.userService.updateUser(this.user).subscribe(
 				response => {
-					alert();
 					let user = response['data'] as User;
 					if (response['success']) {
 						alert('User ' + user.name + ' modificato correttamente');
