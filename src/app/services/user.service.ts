@@ -61,10 +61,8 @@ export class UserService {
 	}
 
 	deleteUser(user) {
-		let index = this.users.indexOf(user);
-		if (index >= 0) {
-			this.users.splice(index, 1);
-		}
+		const data = { _method: 'DELETE' }
+		return this.http.post(this.APIURL + '/' + user.id, data);
 	}
 
 	updateUser(user: UserInterface) {
@@ -73,7 +71,6 @@ export class UserService {
 	}
 
 	createUser(user: UserInterface) {
-		user.id = this.users.length + 1;
-		this.users.splice(0, 0, user);
+		return this.http.post(this.APIURL, user);
 	}
 }
