@@ -3,16 +3,19 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthService {
 
-    private isUserLogged = true;
+    private isUserLogged = false;
 
     constructor() { }
 
     isUserLoggedIn() {
+        //Con la doppia negazione !! trasformiamo il valore in boolean
+        this.isUserLogged = !!localStorage.getItem('token');
         return this.isUserLogged;
     }
 
     signIn(email: string, password: string) {
-
+        localStorage.setItem('token', email);
+        return true;
     }
 
     signUp(username: string, email: string, password: string) {
@@ -20,6 +23,7 @@ export class AuthService {
     }
 
     logout() {
+        localStorage.removeItem('token');
         this.isUserLogged = false;
     }
 }
