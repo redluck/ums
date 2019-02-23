@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { RoutingModuleModule } from './routing-module.module';
 import { UserService } from './services/user.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalBasicComponent } from './modal-basic/modal-basic.component';
 import { UserDataComponent } from './user-data/user-data.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
 	declarations: [
@@ -22,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
 		UserDetailComponent,
 		NavComponent,
 		ModalBasicComponent,
-		UserDataComponent
+		UserDataComponent,
+		LoginComponent
 	],
 	imports: [
 		BrowserModule,
@@ -32,7 +35,10 @@ import { HttpClientModule } from '@angular/common/http';
 		HttpClientModule,
 		RoutingModuleModule
 	],
-	providers: [UserService],
+	providers: [
+        UserService,
+        AuthService
+    ],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
