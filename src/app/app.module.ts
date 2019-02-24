@@ -15,6 +15,7 @@ import { ModalBasicComponent } from './modal-basic/modal-basic.component';
 import { UserDataComponent } from './user-data/user-data.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,8 @@ import { LoginComponent } from './login/login.component';
 		NavComponent,
 		ModalBasicComponent,
 		UserDataComponent,
-		LoginComponent
+		LoginComponent,
+		SignupComponent
 	],
 	imports: [
 		BrowserModule,

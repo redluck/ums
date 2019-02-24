@@ -25,7 +25,13 @@
         </form>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a *ngIf="!isUserLoggedIn" class="nav-link" href="#">Sign in</a>
+                <a *ngIf="!isUserLoggedIn" class="nav-link" href="#" (click)="signIn($event)">Log in</a>
+            </li>
+            <li class="nav-item text-nowrap">
+                <a *ngIf="!isUserLoggedIn" class="nav-link" href="#" (click)="signUp($event)">Sign up</a>
+            </li>
+            <li *ngIf="isUserLoggedIn" class="nav-item">
+                {{username}}
             </li>
             <li class="nav-item text-nowrap">
                 <a *ngIf="isUserLoggedIn" class="nav-link" href="#" (click)="logout($event)">Sign out</a>
