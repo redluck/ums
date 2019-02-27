@@ -1,5 +1,14 @@
+import { HttpClient, HttpHeaderResponse, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { User } from '../classes/user';
+
+interface Jwt {
+    access_token: string,
+    token_type: string,
+    expires_in: number,
+    user_name: string,
+    email: string
+}
 
 @Injectable()
 export class AuthService {
@@ -8,8 +17,9 @@ export class AuthService {
     @Output() usersignedin = new EventEmitter<User>();
     @Output() usersignedup = new EventEmitter<User>();
     @Output() userlogout = new EventEmitter();
+    private APIAUTHURL = 'http://localhost:8000/api/auth/';
 
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     isUserLoggedIn() {
         //Con la doppia negazione !! trasformiamo il valore in boolean
@@ -18,12 +28,25 @@ export class AuthService {
     }
 
     signIn(email: string, password: string) {
-        localStorage.setItem('token', email);
-        let user = new User();
-        user.name = 'Test';
-        user.email = email;
-        this.usersignedin.emit(user);
-        return true;
+        this.http.post(
+            this.APIAUTHURL + 'login',
+            { email: email, password: password }
+        ).subscribe(
+            (payload: Jwt) => {
+                localStorage.setItem('token', payload.access_token);
+                console.log(payload);
+                localStorage.setItem('user', JSON.stringify(payload));
+                let user = new User();
+                user.name = payload.user_name;
+                user.email = payload.email;
+                this.usersignedin.emit(user);
+                return true;
+            },
+            (httpResp: HttpErrorResponse) => {
+                console.log(httpResp);
+                alert(httpResp.message);
+            }
+        )
     }
 
     signUp(username: string, email: string, password: string) {
@@ -37,6 +60,7 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         this.userlogout.emit();
         this.isUserLogged = false;
     }
